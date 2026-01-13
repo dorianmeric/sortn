@@ -9,8 +9,9 @@
 - **Reverse Sort**: Quickly invert the sorting order with the `-r` flag.
 - **Randomize**: Optional flag (`-n`) to shuffle the input lines instead of sorting.
 - **Modern CLI**: Built with **Clap v4**, providing a clean interface and automatic help generation.
+- **Unique**: Optional flag (`-u`) to remove duplicate lines (first occurrence kept). Uniqueness is case-sensitive by default; use `-i` to make uniqueness case-insensitive.
 
-- **Whitespace Handling**: Note: leading whitespaces (spaces and tabs) are ignored when sorting. If your ordering depends on whitespace, preprocess input accordingly.
+- **Whitespace Handling**: Note: leading whitespaces (spaces and tabs) are ignored when sorting. If your ordering depends on whitespace, preprocess input accordingly
 
 ## Installation
 
@@ -90,8 +91,11 @@ C
 | `-n` | `--randomize` | Randomize (shuffle) the output order. |
 | `-r` | `--reverse` | Sort in reverse order. |
 | `-i` | `--ignore-case` | Perform case-insensitive natural sorting. |
+| `-u` | `--unique` | Remove duplicate lines (first occurrence kept). Case-sensitive by default; `-i` makes matching case-insensitive. |
 | `-h` | `--help` | Print help information. |
 | `-V` | `--version` | Print version information. |
+
+Note: When using `--unique`/`-u`, uniqueness is case-sensitive by default; use `-i` to make uniqueness matching case-insensitive.
 
 ## Comparison with GNU `sort`
 

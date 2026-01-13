@@ -1,6 +1,7 @@
 use clap::Parser;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
+use std::collections::HashSet;
 use std::io::{self, BufRead, Write};
 
 /// A utility to perform natural sorting on input lines.
@@ -23,6 +24,10 @@ struct Args {
     /// Randomize output order
     #[arg(short = 'n', long)]
     randomize: bool,
+
+    /// Make results unique (first occurrence kept)
+    #[arg(short = 'u', long = "unique")]
+    unique: bool,
 
 }
 
@@ -48,7 +53,7 @@ fn main() {
     } else {
         // We use the natord crate for "natural" alphanumeric ordering.
         lines.sort_by(|a, b| {
-            let (a_key, b_key) = (a.as_str(), b.as_str()) ;
+            let (a_key, b_key) = (a.as_str(), b.as_str());
 
             let cmp = if args.ignore_case {
                 natord::compare(&a_key.to_lowercase(), &b_key.to_lowercase())
@@ -60,6 +65,28 @@ fn main() {
                 cmp.reverse()
             } else {
                 cmp
+            }
+        });
+    }
+
+    // 2b. If unique requested, filter duplicates. Uniqueness is case-sensitive
+    // by default. If `-i`/`--ignore-case` is provided the uniqueness matching
+    // becomes case-insensitive.
+    if args.unique {
+        let mut seen: HashSet<String> = HashSet::new();
+        lines.retain(|line| {
+
+            let mut key = line.clone();
+
+            if args.ignore_case {
+                key = key.to_lowercase();
+            }
+
+            if seen.contains(&key) {
+                false
+            } else {
+                seen.insert(key);
+                true
             }
         });
     }
