@@ -88,7 +88,6 @@ C
 | `-n` | `--randomize` | Randomize (shuffle) the output order. |
 | `-r` | `--reverse` | Sort in reverse order. |
 | `-i` | `--ignore-case` | Perform case-insensitive natural sorting. |
-| `-b` | `--ignore-starting-blanks` | Ignore leading blank characters when comparing. |
 | `-h` | `--help` | Print help information. |
 | `-V` | `--version` | Print version information. |
 

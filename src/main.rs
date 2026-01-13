@@ -24,9 +24,6 @@ struct Args {
     #[arg(short = 'n', long)]
     randomize: bool,
 
-    /// Ignore starting blank characters when comparing
-    #[arg(short = 'b', long)]
-    ignore_starting_blanks: bool,
 }
 
 fn main() {
@@ -51,11 +48,7 @@ fn main() {
     } else {
         // We use the natord crate for "natural" alphanumeric ordering.
         lines.sort_by(|a, b| {
-            let (a_key, b_key) = if args.ignore_starting_blanks {
-                (a.trim_start(), b.trim_start())
-            } else {
-                (a.as_str(), b.as_str())
-            };
+            let (a_key, b_key) = (a.as_str(), b.as_str()) ;
 
             let cmp = if args.ignore_case {
                 natord::compare(&a_key.to_lowercase(), &b_key.to_lowercase())
