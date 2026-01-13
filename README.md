@@ -10,9 +10,6 @@
 - **Randomize**: Optional flag (`-n`) to shuffle the input lines instead of sorting.
 - **Unique**: Optional flag (`-u`) to remove duplicate lines (first occurrence kept). Uniqueness is case-sensitive by default; use `-i` to make uniqueness case-insensitive.
 - **Whitespace Handling**: Note: leading whitespaces (spaces and tabs) are ignored when sorting. If your ordering depends on whitespace, preprocess input accordingly
-- **Modern CLI**: Built with **Clap v4**, providing a clean interface and automatic help generation.
-
-
 - **Skip Blank Lines**: Optional flag (`-b`) to remove blank lines (empty or whitespace-only) from the input before processing; such lines will not be sorted or returned.
 ## Installation
 
