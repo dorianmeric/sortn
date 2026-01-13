@@ -4,10 +4,11 @@
 
 ## Features
 
-* **Natural Ordering**: Correctly handles numeric sequences within strings.
-* **Case Insensitivity**: Optional flag (`-i`) to ignore character casing during comparison.
-* **Reverse Sort**: Quickly invert the sorting order with the `-r` flag.
-* **Modern CLI**: Built with **Clap v4**, providing a clean interface and automatic help generation.
+- **Natural Ordering**: Correctly handles numeric sequences within strings.
+- **Case Insensitivity**: Optional flag (`-i`) to ignore character casing during comparison.
+- **Reverse Sort**: Quickly invert the sorting order with the `-r` flag.
+- **Randomize**: Optional flag (`-n`) to shuffle the input lines instead of sorting.
+- **Modern CLI**: Built with **Clap v4**, providing a clean interface and automatic help generation.
 
 ## Installation
 
@@ -48,13 +49,25 @@ file10.txt
 
 ```
 
-### Reverse Order (`-r`)
+### Reverse Order (`-R`)
 
 ```bash
-$ cat files.txt | sortn -r
+$ cat files.txt | sortn -R
 file10.txt
 file2.txt
 file1.txt
+
+```
+
+### Randomize (`-n`)
+
+Shuffle (randomize) the output order. When `-n` is provided, `sortn` will output the input lines in a random order instead of sorting them.
+
+```bash
+$ cat files.txt | sortn -r
+file2.txt
+file1.txt
+file10.txt
 
 ```
 
@@ -72,8 +85,10 @@ C
 
 | Flag | Long Flag | Description |
 | --- | --- | --- |
+| `-n` | `--randomize` | Randomize (shuffle) the output order. |
 | `-r` | `--reverse` | Sort in reverse order. |
 | `-i` | `--ignore-case` | Perform case-insensitive natural sorting. |
+| `-b` | `--ignore-starting-blanks` | Ignore leading blank characters when comparing. |
 | `-h` | `--help` | Print help information. |
 | `-V` | `--version` | Print version information. |
 

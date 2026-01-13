@@ -1,4 +1,6 @@
 use clap::Parser;
+use rand::seq::SliceRandom;
+use rand::thread_rng;
 use std::io::{self, BufRead, Write};
 
 /// A utility to perform natural sorting on input lines.
@@ -17,6 +19,14 @@ struct Args {
     /// Case-insensitive sorting
     #[arg(short, long)]
     ignore_case: bool,
+    
+    /// Randomize output order
+    #[arg(short = 'n', long)]
+    randomize: bool,
+
+    /// Ignore starting blank characters when comparing
+    #[arg(short = 'b', long)]
+    ignore_starting_blanks: bool,
 }
 
 fn main() {
@@ -34,22 +44,32 @@ fn main() {
         .map(|l| l.expect("Failed to read line from stdin"))
         .collect();
 
-    // 2. Perform natural sort
-    // We use the natord crate for "natural" alphanumeric ordering.
-    lines.sort_by(|a, b| {
-        let cmp = if args.ignore_case {
-            // Compare lowercase versions for case-insensitivity
-            natord::compare(&a.to_lowercase(), &b.to_lowercase())
-        } else {
-            natord::compare(a, b)
-        };
+    // 2. Either randomize or perform natural sort
+    if args.randomize {
+        let mut rng = thread_rng();
+        lines.as_mut_slice().shuffle(&mut rng);
+    } else {
+        // We use the natord crate for "natural" alphanumeric ordering.
+        lines.sort_by(|a, b| {
+            let (a_key, b_key) = if args.ignore_starting_blanks {
+                (a.trim_start(), b.trim_start())
+            } else {
+                (a.as_str(), b.as_str())
+            };
 
-        if args.reverse {
-            cmp.reverse()
-        } else {
-            cmp
-        }
-    });
+            let cmp = if args.ignore_case {
+                natord::compare(&a_key.to_lowercase(), &b_key.to_lowercase())
+            } else {
+                natord::compare(a_key, b_key)
+            };
+
+            if args.reverse {
+                cmp.reverse()
+            } else {
+                cmp
+            }
+        });
+    }
 
     // 3. Output the sorted lines
     let mut out = stdout.lock();
