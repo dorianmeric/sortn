@@ -137,7 +137,7 @@ C
 | `-n` | `--randomize` | Randomize (shuffle) the output order. |
 | `-r` | `--reverse` | Sort in reverse order. |
 | `-i` | `--ignore-case` | Perform case-insensitive natural sorting. |
-| `-u` | `--unique` | Remove duplicate lines (first occurrence kept). Case-sensitive by default; `-i` makes matching case-insensitive. |
+| `-u` | `--unique` | Remove duplicate lines (first occurrence kept). Case-sensitive by default; adding `-i` (`-ui` for short) makes matching case-insensitive. |
 | `-b` | `--skip-blank-lines` | Remove blank lines (empty or whitespace-only) before processing; they will not be returned. |
 | `-h` | `--help` | Print help information. |
 | `-V` | `--version` | Print version information. |
