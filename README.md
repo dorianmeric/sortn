@@ -1,4 +1,4 @@
-# sortn
+# sortn (Sort-Natural)
 
 `sortn` is a fast, command-line utility written in Rust that performs **natural sorting** on input lines. Unlike standard lexicographical sorting—which would sort "file10.txt" before "file2.txt"—`sortn` treats multi-digit numbers as single numeric values, resulting in a more human-friendly order (1, 2, 10).
 
@@ -8,10 +8,9 @@
 - **Case Insensitivity**: the sorting is case-sensitive by default (ie. lowercase comes after uppercase). Optional flag (`-i`) to ignore character casing during comparison.
 - **Reverse Sort**: Quickly invert the sorting order with the `-r` flag.
 - **Randomize**: Optional flag (`-n`) to shuffle the input lines instead of sorting.
-- **Modern CLI**: Built with **Clap v4**, providing a clean interface and automatic help generation.
 - **Unique**: Optional flag (`-u`) to remove duplicate lines (first occurrence kept). Uniqueness is case-sensitive by default; use `-i` to make uniqueness case-insensitive.
-
 - **Whitespace Handling**: Note: leading whitespaces (spaces and tabs) are ignored when sorting. If your ordering depends on whitespace, preprocess input accordingly
+- **Modern CLI**: Built with **Clap v4**, providing a clean interface and automatic help generation.
 
 ## Installation
 
@@ -23,6 +22,7 @@ Visit the Releases page for the latest prebuilt assets:
 
 #### Windows 
 Windows (64-bit) download link: https://github.com/dorianmeric/sortn/releases/download/v1.0.0/sortn-x86_64-pc-windows-msvc.zip
+
 After downloading, extract and move `sortn.exe` to `C:\Program Files\sortn\` and add that folder to your `%PATH%`, or move it to an existing folder already on `PATH` (requires admin to write to `C:\Program Files`).
 
 ```powershell
@@ -34,6 +34,7 @@ setx PATH "%PATH%;C:\Program Files\sortn\"
 
 #### Linux 
 Linux (x86 64-bit) download link:   https://github.com/dorianmeric/sortn/releases/download/v1.0.0/sortn-x86_64-unknown-linux-gnu.tar.xz
+
 After downloading, extract and move to `/usr/local/bin` (requires sudo):
 
 ```bash
@@ -44,6 +45,7 @@ sudo chmod +x /usr/local/bin/sortn
 
 #### macOS
 macOS (x86 64-bit) download link:   https://github.com/dorianmeric/sortn/releases/download/v1.0.0/sortn-x86_64-apple-darwin.tar.xz
+
 After downloading, extract and move to `/usr/local/bin` or `~/bin`:
 
 ```bash
