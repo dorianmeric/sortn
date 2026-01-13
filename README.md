@@ -8,14 +8,14 @@
 - **Case sensitivity**: sorting and uniqueness are case-sensitive by default (uppercase sorts before lowercase). Use `-i` / `--ignore-case` to compare case-insensitively.
 - **Reverse**: `-r` / `--reverse` reverses the sort order.
 - **Randomize**: `-n` / `--randomize` shuffles the input instead of sorting.
-- **Unique**: `-u` / `--unique` removes duplicate lines, keeping the first occurrence. Uniqueness is case-sensitive by default; use `-i` to make uniqueness comparisons case-insensitive.
+- **Unique**: `-u` / `--make-unique` removes duplicate lines, keeping the first occurrence. Uniqueness is case-sensitive by default; use `-i` to make uniqueness comparisons case-insensitive.
 - **Skip blank lines**: `-b` / `--skip-blank-lines` removes empty or whitespace-only lines before processing; such lines will not be returned.
 - **Whitespace handling**: the underlying [`natord::compare`](https://docs.rs/natord) used for comparisons ignores whitespace characters (spaces and tabs). If your ordering depends on exact whitespace, preprocess input first.
 
 ## Quick behavior summary
 
 - If `--randomize` is used, input is shuffled. Otherwise input is sorted.
-- After sorting or shuffling, `--unique` (if present) is applied; the first occurrence of each unique key is kept.
+- After sorting or shuffling, `--make-unique` (if present) is applied; the first occurrence of each unique key is kept.
 - Flags that affect comparisons: `--ignore-case` affects both sorting and uniqueness; `natord::compare` itself ignores whitespace.
 
 ## Installation
@@ -179,14 +179,14 @@ b
 | `-n` | `--randomize` | Shuffle input instead of sorting. |
 | `-r` | `--reverse` | Reverse sort order. |
 | `-i` | `--ignore-case` | Case-insensitive comparisons for both sorting and uniqueness. |
-| `-u` | `--unique` | Remove duplicate lines (first occurrence kept). Case-sensitive by default; adding `-i` (`-ui` for short) makes matching case-insensitive. |
+| `-u` | `--make-unique` | Remove duplicate lines (first occurrence kept). Case-sensitive by default; adding `-i` (`-ui` for short) makes matching case-insensitive. |
 | `-b` | `--skip-blank-lines` | Drop blank lines (empty or whitespace-only) before processing; they will not be returned. |
 | `-h` | `--help` | Show help information. |
 | `-V` | `--version` | Show version information. |
 
 Note:
 - when both `--randomize` and sorting flags are present, `--randomize` takes precedence (input is shuffled). 
-- After shuffling or sorting, `--unique` is applied.
+- After shuffling or sorting, `--make-unique` is applied.
 
 ## Comparison with GNU `sort`
 
