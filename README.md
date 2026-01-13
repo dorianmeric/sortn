@@ -4,13 +4,20 @@
 
 ## Features
 
-- **Natural Ordering**: Correctly handles numeric sequences within strings.
-- **Case Insensitivity**: the sorting is case-sensitive by default (ie. lowercase comes after uppercase). Optional flag (`-i`) to ignore character casing during comparison.
-- **Reverse Sort**: Quickly invert the sorting order with the `-r` flag.
-- **Randomize**: Optional flag (`-n`) to shuffle the input lines instead of sorting.
-- **Unique**: Optional flag (`-u`) to remove duplicate lines (first occurrence kept). Uniqueness is case-sensitive by default; use `-i` to make uniqueness case-insensitive.
-- **Whitespace Handling**: Note: leading whitespaces (spaces and tabs) are ignored when sorting. If your ordering depends on whitespace, preprocess input accordingly
-- **Skip Blank Lines**: Optional flag (`-b`) to remove blank lines (empty or whitespace-only) from the input before processing; such lines will not be sorted or returned.
+- **Natural ordering**: numeric parts of strings are compared as numbers (e.g., `2` < `10`).
+- **Case sensitivity**: sorting and uniqueness are case-sensitive by default (uppercase sorts before lowercase). Use `-i` / `--ignore-case` to compare case-insensitively.
+- **Reverse**: `-r` / `--reverse` reverses the sort order.
+- **Randomize**: `-n` / `--randomize` shuffles the input instead of sorting.
+- **Unique**: `-u` / `--unique` removes duplicate lines, keeping the first occurrence. Uniqueness is case-sensitive by default; use `-i` to make uniqueness comparisons case-insensitive.
+- **Skip blank lines**: `-b` / `--skip-blank-lines` removes empty or whitespace-only lines before processing; such lines will not be returned.
+- **Whitespace handling**: the underlying [`natord::compare`](https://docs.rs/natord) used for comparisons ignores whitespace characters (spaces and tabs). If your ordering depends on exact whitespace, preprocess input first.
+
+## Quick behavior summary
+
+- If `--randomize` is used, input is shuffled. Otherwise input is sorted.
+- After sorting or shuffling, `--unique` (if present) is applied; the first occurrence of each unique key is kept.
+- Flags that affect comparisons: `--ignore-case` affects both sorting and uniqueness; `natord::compare` itself ignores whitespace.
+
 ## Installation
 
 Download a prebuilt executable for your platform from the Releases page, or build from source (see below).
@@ -66,6 +73,8 @@ Ensure you have the Rust toolchain installed.
 1. Clone this repository.
 2. Build the release binary:
 ```bash
+git clone https://github.com/dorianmeric/sortn.git
+cd sortn
 cargo build --release
 
 ```
@@ -81,9 +90,9 @@ cp target/release/sortn /usr/local/bin/
 
 ## Usage
 
-`sortn` reads from standard input (`stdin`) and writes the sorted result to standard output (`stdout`).
+`sortn` reads lines from standard input and writes results to standard output. Below are common examples and flag behaviors.
 
-### Basic Sorting
+### Basic sorting
 
 ```bash
 $ cat files.txt
@@ -95,64 +104,97 @@ $ cat files.txt | sortn
 file1.txt
 file2.txt
 file10.txt
-
 ```
 
-### Reverse Order (`-r`)
+### Reverse order
 
 ```bash
 $ cat files.txt | sortn -r
 file10.txt
 file2.txt
 file1.txt
-
 ```
 
-### Randomize (`-n`)
+### Randomize
 
-Shuffle (randomize) the output order. When `-n` is provided, `sortn` will output the input lines in a random order instead of sorting them.
+Shuffle the input instead of sorting:
 
 ```bash
 $ cat files.txt | sortn -n
 file2.txt
 file1.txt
 file10.txt
-
 ```
 
-### Case-Insensitive (`-i`)
+### Unique (`-u`)
+
+Keep first occurrence of duplicate lines.
+
+Input `input.txt`:
+
+```
+a
+A
+a
+```
+
+Case-sensitive unique (default):
 
 ```bash
-$ echo -e "B\na\nC" | sortn -i
+$ cat input.txt | sortn -u
 a
-B
-C
+A
+```
+
+Case-insensitive unique (use `-i`):
+
+```bash
+$ cat input.txt | sortn -u -i
+a
+```
+
+### Skip blank lines (`-b`)
+
+```bash
+$ printf "a\n\n  \nb\n" | sortn -b
+a
+b
+```
+
+### Whitespace behavior
+
+`natord::compare` ignores whitespace characters when comparing lines. Example:
 
 ```
+" a1"
+"a1"
+```
+
+`sortn` will treat these as equivalent for ordering because whitespace is ignored by the comparison function; if you need to preserve whitespace differences, trim or escape them before sorting.
 
 ## Options
 
 | Flag | Long Flag | Description |
 | --- | --- | --- |
-| `-n` | `--randomize` | Randomize (shuffle) the output order. |
-| `-r` | `--reverse` | Sort in reverse order. |
-| `-i` | `--ignore-case` | Perform case-insensitive natural sorting. |
+| `-n` | `--randomize` | Shuffle input instead of sorting. |
+| `-r` | `--reverse` | Reverse sort order. |
+| `-i` | `--ignore-case` | Case-insensitive comparisons for both sorting and uniqueness. |
 | `-u` | `--unique` | Remove duplicate lines (first occurrence kept). Case-sensitive by default; adding `-i` (`-ui` for short) makes matching case-insensitive. |
-| `-b` | `--skip-blank-lines` | Remove blank lines (empty or whitespace-only) before processing; they will not be returned. |
-| `-h` | `--help` | Print help information. |
-| `-V` | `--version` | Print version information. |
+| `-b` | `--skip-blank-lines` | Drop blank lines (empty or whitespace-only) before processing; they will not be returned. |
+| `-h` | `--help` | Show help information. |
+| `-V` | `--version` | Show version information. |
 
-Note: When using `--unique`/`-u`, uniqueness is case-sensitive by default; use `-i` to make uniqueness matching case-insensitive.
+Note:
+- when both `--randomize` and sorting flags are present, `--randomize` takes precedence (input is shuffled). 
+- After shuffling or sorting, `--unique` is applied.
 
 ## Comparison with GNU `sort`
 
-Note: The natural comparison used by `sortn` (via the `natord::compare` crate) ignores whitespace characters such as spaces and tabs when comparing lines. Keep this in mind if your input relies on whitespace for ordering; preprocess input if necessary.
+The standard GNU `sort` includes a `-V` (`--version-sort`) mode that performs natural-like ordering. `sortn` differs by being a focused Rust utility with these distinctions:
 
-While the standard GNU `sort` utility includes a `-V` (`--version-sort`) flag that achieves similar results, `sortn` offers several distinctions:
-
-* **Simplicity**: `sortn` is a focused, lightweight tool specifically designed for natural sorting without the overhead of the dozens of flags found in GNU `sort`.
-* **Performance**: Written in Rust and utilizing the `natord` crate, `sortn` provides highly competitive performance for in-memory sorting tasks.
-* **Memory Usage**: Currently, `sortn` loads all input lines into memory to perform a global sort. For extremely large datasets that exceed available RAM, GNU `sort` (which uses disk-based merging) may be more suitable.
+- **Simplicity**: small focused tool with a few flags.
+- **Performance**: optimized in Rust and using `natord` for comparisons.
+- **Memory model**: `sortn` loads all input into memory for sorting; for extremely large datasets, GNU `sort` (which can use disk) may be more appropriate.
 
 ## Performance Benchmarks
 
@@ -161,4 +203,11 @@ While the standard GNU `sort` utility includes a `-V` (`--version-sort`) flag th
 1. **Locking I/O**: Accessing `stdin` and `stdout` through locked buffers to minimize system call overhead.
 2. **Efficient Comparison**: Using the `natord` crate which is optimized for natural string comparison without unnecessary allocations.
 3. **Zero-Cost Abstractions**: Leveraging Rust's ownership model to manage string data efficiently during the sort process.
+
+## Further notes
+
+- Documentation for the comparison algorithm: https://docs.rs/natord
+- Quick example: `cat files.txt | sortn -i -r -u`
+
+If you'd like, I can also apply this README patch directly to the repository.
 
