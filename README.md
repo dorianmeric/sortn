@@ -51,10 +51,10 @@ file10.txt
 
 ```
 
-### Reverse Order (`-R`)
+### Reverse Order (`-r`)
 
 ```bash
-$ cat files.txt | sortn -R
+$ cat files.txt | sortn -r
 file10.txt
 file2.txt
 file1.txt
@@ -66,7 +66,7 @@ file1.txt
 Shuffle (randomize) the output order. When `-n` is provided, `sortn` will output the input lines in a random order instead of sorting them.
 
 ```bash
-$ cat files.txt | sortn -r
+$ cat files.txt | sortn -n
 file2.txt
 file1.txt
 file10.txt
