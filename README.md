@@ -12,6 +12,8 @@
 - **Whitespace Handling**: Note: leading whitespaces (spaces and tabs) are ignored when sorting. If your ordering depends on whitespace, preprocess input accordingly
 - **Modern CLI**: Built with **Clap v4**, providing a clean interface and automatic help generation.
 
+
+- **Skip Blank Lines**: Optional flag (`-b`) to remove blank lines (empty or whitespace-only) from the input before processing; such lines will not be sorted or returned.
 ## Installation
 
 Download a prebuilt executable for your platform from the Releases page, or build from source (see below).
@@ -139,6 +141,7 @@ C
 | `-r` | `--reverse` | Sort in reverse order. |
 | `-i` | `--ignore-case` | Perform case-insensitive natural sorting. |
 | `-u` | `--unique` | Remove duplicate lines (first occurrence kept). Case-sensitive by default; `-i` makes matching case-insensitive. |
+| `-b` | `--skip-blank-lines` | Remove blank lines (empty or whitespace-only) before processing; they will not be returned. |
 | `-h` | `--help` | Print help information. |
 | `-V` | `--version` | Print version information. |
 

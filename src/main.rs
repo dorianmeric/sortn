@@ -25,6 +25,10 @@ struct Args {
     #[arg(short = 'n', long)]
     randomize: bool,
 
+    /// Skip blank lines (remove empty or all-whitespace lines before processing)
+    #[arg(short = 'b', long = "skip-blank-lines")]
+    skip_blank_lines: bool,
+
     /// Make results unique (first occurrence kept)
     #[arg(short = 'u', long = "unique")]
     unique: bool,
@@ -45,6 +49,11 @@ fn main() {
         .lines()
         .map(|l| l.expect("Failed to read line from stdin"))
         .collect();
+
+    // Optionally drop blank lines (empty or whitespace-only) before sorting
+    if args.skip_blank_lines {
+        lines.retain(|l| !l.trim().is_empty());
+    }
 
     // 2. Either randomize or perform natural sort
     if args.randomize {
