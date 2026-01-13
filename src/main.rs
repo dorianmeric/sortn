@@ -30,7 +30,7 @@ struct Args {
     skip_blank_lines: bool,
 
     /// Make results unique (first occurrence kept)
-    #[arg(short = 'u', long = "unique")]
+    #[arg(short = 'u', long = "make-unique")]
     unique: bool,
 
 }
