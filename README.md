@@ -208,6 +208,3 @@ The standard GNU `sort` includes a `-V` (`--version-sort`) mode that performs na
 
 - Documentation for the comparison algorithm: https://docs.rs/natord
 - Quick example: `cat files.txt | sortn -i -r -u`
-
-If you'd like, I can also apply this README patch directly to the repository.
-
