@@ -15,6 +15,52 @@
 
 ## Installation
 
+Download a prebuilt executable for your platform from the Releases page, or build from source (see below).
+
+### Prebuilt binaries (recommended)
+
+Visit the Releases page for the latest prebuilt assets:
+
+- Windows (64-bit): https://github.com/dorianmeric/sortn/releases/download/v1.0.0/sortn-x86_64-pc-windows-msvc.zip
+- Linux (x86 64-bit):   https://github.com/dorianmeric/sortn/releases/download/v1.0.0/sortn-x86_64-unknown-linux-gnu.tar.xz
+- macOS (x86 64-bit):   https://github.com/dorianmeric/sortn/releases/download/v1.0.0/sortn-x86_64-apple-darwin.tar.xz
+
+Open the **Assets** section for the latest release and download the file that matches your platform (examples: a ZIP for Windows, tar.gz for Linux/macOS).
+
+After downloading and extracting, place the `sortn` executable somewhere on your `PATH`:
+
+- Windows (example): extract and move `sortn.exe` to `C:\Program Files\sortn\` and add that folder to your `%PATH%`, or move it to an existing folder already on `PATH` (requires admin to write to `C:\Program Files`).
+
+```powershell
+Expand-Archive sortn-*-windows-*.zip -DestinationPath 'C:\Program Files\sortn\'
+# Add to PATH permanently (requires a new shell to take effect)
+setx PATH "%PATH%;C:\Program Files\sortn\"
+```
+
+- Linux (example): extract and move to `/usr/local/bin` (requires sudo):
+
+```bash
+tar xzf sortn-*-linux-*.tar.gz
+sudo mv sortn /usr/local/bin/
+sudo chmod +x /usr/local/bin/sortn
+```
+
+- macOS (example): extract and move to `/usr/local/bin` or `~/bin`:
+
+```bash
+tar xzf sortn-*-apple-*.tar.gz
+sudo mv sortn /usr/local/bin/
+sudo chmod +x /usr/local/bin/sortn
+# or for a user-local install:
+mv sortn ~/bin/
+chmod +x ~/bin/sortn
+```
+
+If you prefer not to install globally, you can keep the binary in any folder and run it by specifying its path (for example `./sortn`).
+
+
+### Installation from source
+
 Ensure you have the Rust toolchain installed.
 
 1. Clone this repository.
