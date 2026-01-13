@@ -25,7 +25,7 @@ struct Args {
     #[arg(short = 'n', long)]
     randomize: bool,
 
-    /// Skip blank lines (remove empty or all-whitespace lines before processing)
+    /// Skip blank lines (remove empty lines or all-whitespace lines from the input)
     #[arg(short = 'b', long = "skip-blank-lines")]
     skip_blank_lines: bool,
 
