@@ -23,12 +23,7 @@ Visit the Releases page for the latest prebuilt assets:
 
 #### Windows 
 Windows (64-bit) download link: https://github.com/dorianmeric/sortn/releases/download/v1.0.0/sortn-x86_64-pc-windows-msvc.zip
-
-Open the **Assets** section for the latest release and download the file that matches your platform (examples: a ZIP for Windows, tar.gz for Linux/macOS).
-
-After downloading and extracting, place the `sortn` executable somewhere on your `PATH`:
-
-- Windows (example): extract and move `sortn.exe` to `C:\Program Files\sortn\` and add that folder to your `%PATH%`, or move it to an existing folder already on `PATH` (requires admin to write to `C:\Program Files`).
+After downloading, extract and move `sortn.exe` to `C:\Program Files\sortn\` and add that folder to your `%PATH%`, or move it to an existing folder already on `PATH` (requires admin to write to `C:\Program Files`).
 
 ```powershell
 Expand-Archive sortn-*-windows-*.zip -DestinationPath 'C:\Program Files\sortn\'
@@ -39,8 +34,7 @@ setx PATH "%PATH%;C:\Program Files\sortn\"
 
 #### Linux 
 Linux (x86 64-bit) download link:   https://github.com/dorianmeric/sortn/releases/download/v1.0.0/sortn-x86_64-unknown-linux-gnu.tar.xz
-
-- Linux (example): extract and move to `/usr/local/bin` (requires sudo):
+After downloading, extract and move to `/usr/local/bin` (requires sudo):
 
 ```bash
 tar xzf sortn-*-linux-*.tar.gz
@@ -49,9 +43,8 @@ sudo chmod +x /usr/local/bin/sortn
 ```
 
 #### macOS
-- macOS (x86 64-bit) download link:   https://github.com/dorianmeric/sortn/releases/download/v1.0.0/sortn-x86_64-apple-darwin.tar.xz
-
-- macOS (example): extract and move to `/usr/local/bin` or `~/bin`:
+macOS (x86 64-bit) download link:   https://github.com/dorianmeric/sortn/releases/download/v1.0.0/sortn-x86_64-apple-darwin.tar.xz
+After downloading, extract and move to `/usr/local/bin` or `~/bin`:
 
 ```bash
 tar xzf sortn-*-apple-*.tar.gz
