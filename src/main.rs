@@ -9,7 +9,7 @@ use std::io::{self, BufRead, Write};
     name = "sortn",
     version,
     about = "Sorts lines naturally (e.g., '2' before '10')",
-    long_about = None
+    long_about = "Sorts lines naturally (e.g., '2' before '10'). Note: leading whitespaces (spaces and tabs) are ignored when sorting, but the sorting is case-sensitive by default (ie. lowercase comes after uppercase)."
 )]
 struct Args {
     /// Sort in reverse order

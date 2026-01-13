@@ -5,10 +5,12 @@
 ## Features
 
 - **Natural Ordering**: Correctly handles numeric sequences within strings.
-- **Case Insensitivity**: Optional flag (`-i`) to ignore character casing during comparison.
+- **Case Insensitivity**: the sorting is case-sensitive by default (ie. lowercase comes after uppercase). Optional flag (`-i`) to ignore character casing during comparison.
 - **Reverse Sort**: Quickly invert the sorting order with the `-r` flag.
 - **Randomize**: Optional flag (`-n`) to shuffle the input lines instead of sorting.
 - **Modern CLI**: Built with **Clap v4**, providing a clean interface and automatic help generation.
+
+- **Whitespace Handling**: Note: leading whitespaces (spaces and tabs) are ignored when sorting. If your ordering depends on whitespace, preprocess input accordingly.
 
 ## Installation
 
@@ -92,6 +94,8 @@ C
 | `-V` | `--version` | Print version information. |
 
 ## Comparison with GNU `sort`
+
+Note: The natural comparison used by `sortn` (via the `natord::compare` crate) ignores whitespace characters such as spaces and tabs when comparing lines. Keep this in mind if your input relies on whitespace for ordering; preprocess input if necessary.
 
 While the standard GNU `sort` utility includes a `-V` (`--version-sort`) flag that achieves similar results, `sortn` offers several distinctions:
 
