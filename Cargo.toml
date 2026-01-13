@@ -1,0 +1,22 @@
+[package]
+name = "sortn"
+version = "1.0.0"
+authors = ["Dorian Meric"]
+repository = "https://github.com/dorianmeric/sortn"
+license = "MIT"
+description = "natural sort CLI"
+readme = "README.md"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.5.54", features = ["derive"] }
+natord = "1.0.9"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[[bin]]
+name = "sortn"
+path = "src/main.rs"
